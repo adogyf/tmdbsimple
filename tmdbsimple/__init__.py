@@ -35,6 +35,7 @@ from .movies import Movies, Collections, Companies, Keywords, Reviews
 from .people import People, Credits, Jobs
 from .search import Search
 from .tv import TV, TV_Seasons, TV_Episodes, Networks
+from .exports import get_exports
 
 
 API_KEY = os.environ.get('TMDB_API_KEY', None)
