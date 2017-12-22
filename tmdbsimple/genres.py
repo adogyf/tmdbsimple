@@ -22,7 +22,8 @@ class Genres(TMDB):
     """
     BASE_PATH = 'genre'
     URLS = {
-        'list': '/list',
+        'movie_list': '/movie/list',
+        'tv_list': '/tv/list'
         'movies': '/{id}/movies',
     }
 
@@ -30,9 +31,9 @@ class Genres(TMDB):
         super(Genres, self).__init__()
         self.id = id
 
-    def list(self, **kwargs):
+    def movie_list(self, **kwargs):
         """
-        Get the list of genres.
+        Get the list of official genres for movies.
 
         Args:
             language: (optional) ISO 639-1 code.
@@ -40,7 +41,23 @@ class Genres(TMDB):
         Returns:
             A dict respresentation of the JSON returned from the API.
         """
-        path = self._get_path('list')
+        path = self._get_path('movie_list')
+
+        response = self._GET(path, kwargs)
+        self._set_attrs_to_values(response)
+        return response
+
+    def tv_list(self, **kwargs):
+        """
+        Get the list of official genres for TV shows.
+
+        Args:
+            language: (optional) ISO 639-1 code.
+
+        Returns:
+            A dict respresentation of the JSON returned from the API.
+        """
+        path = self._get_path('tv_list')
 
         response = self._GET(path, kwargs)
         self._set_attrs_to_values(response)
@@ -48,14 +65,19 @@ class Genres(TMDB):
 
     def movies(self, **kwargs):
         """
+        This method is deprecated. We highly recommend using
+        :func:`~tmdbsimple.Discover.movie` instead of this method as it
+        is much more flexible and will provide the same data with many
+        more options and filters.
+
         Get the list of movies for a particular genre by id. By default, only
         movies with 10 or more votes are included.
 
         Args:
             page: (optional) Minimum 1, maximum 1000.
             language: (optional) ISO 639-1 code.
-            include_all_movies: (optional) Toggle the inclusion of all movies 
-                                and not just those with 10 or more ratings. 
+            include_all_movies: (optional) Toggle the inclusion of all movies
+                                and not just those with 10 or more ratings.
                                 Expected value is: True or False.
             include_adult: (optional) Toggle the inclusion of adult titles.
                            Expected value is: True or False.
