@@ -7,7 +7,7 @@ This test suite checks the methods of the Movies class of tmdbsimple.
 
 Created by Celia Oakley on 2013-11-05
 
-:copyright: (c) 2013-2017 by Celia Oakley.
+:copyright: (c) 2013-2018 by Celia Oakley.
 :license: GPLv3, see LICENSE for more details.
 """
 
@@ -78,13 +78,6 @@ class MoviesTestCase(unittest.TestCase):
         movie = tmdb.Movies(id)
         response = movie.keywords()
         self.assertTrue(hasattr(movie, 'keywords'))
-        # Confirm we can call keywords() again without error
-        raised = False
-        try:
-            movie.keywords()
-        except:
-            raised = True
-        self.assertFalse(raised)
 
     def test_movies_release_dates(self):
         id = MOVIE_ID

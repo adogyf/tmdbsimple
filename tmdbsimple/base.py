@@ -7,7 +7,7 @@ This module implements the base class of tmdbsimple.
 
 Created by Celia Oakley on 2013-10-31.
 
-:copyright: (c) 2013-2017 by Celia Oakley
+:copyright: (c) 2013-2018 by Celia Oakley
 :license: GPLv3, see LICENSE for more details
 """
 
@@ -102,6 +102,6 @@ class TMDB(object):
         """
         if isinstance(response, dict):
             for key in response.keys():
-                if not hasattr(self, key):
+                if not hasattr(self, key) or not callable(getattr(self, key)):
                     setattr(self, key, response[key])
 
